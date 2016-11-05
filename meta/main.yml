@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: mjanser
+  description: Installs and configures let's encrypt on Fedora
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: Fedora
+  galaxy_tags:
+    - web
+    - encryption
+dependencies: []
