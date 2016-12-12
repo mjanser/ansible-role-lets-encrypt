@@ -1,5 +1,5 @@
 Vagrant.configure('2') do |config|
-  config.vm.box = 'obnox/fedora24-64-lxc'
+  config.vm.box = 'mjanser/fedora25-64-lxc'
 
   config.vm.provision 'ansible_local' do |ansible|
     ansible.playbook = 'playbook.yml'
