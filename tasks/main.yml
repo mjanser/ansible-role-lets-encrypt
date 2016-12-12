@@ -4,13 +4,13 @@
     name: certbot
 
 - name: ensure systemd service is installed
-  template:
-    src: systemd.service.j2
+  copy:
+    src: systemd.service
     dest: /etc/systemd/system/certbot.service
 
 - name: ensure systemd timer is installed
-  template:
-    src: systemd.timer.j2
+  copy:
+    src: systemd.timer
     dest: /etc/systemd/system/certbot.timer
 
 - name: ensure systemd timer is enabled
