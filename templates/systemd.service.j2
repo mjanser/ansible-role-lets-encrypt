@@ -1,0 +1,6 @@
+[Unit]
+Description=This service automatically renews any certbot certificates found
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot renew --post-hook 'systemctl restart {{ lets_encrypt_web_server }}'

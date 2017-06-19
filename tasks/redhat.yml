@@ -1,0 +1,17 @@
+---
+- name: ensure required packages are installed
+  package:
+    name: certbot
+
+- name: ensure post hook is configured
+  lineinfile:
+    dest: /etc/sysconfig/certbot
+    line: "POST_HOOK=\"--post-hook 'systemctl restart {{ lets_encrypt_web_server }}'\""
+    regexp: "^POST_HOOK="
+  when: lets_encrypt_web_server is not none and lets_encrypt_web_server != ''
+
+- name: ensure systemd timer is enabled
+  service:
+    name: certbot-renew.timer
+    state: started
+    enabled: yes

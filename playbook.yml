@@ -1,4 +1,12 @@
 ---
 - hosts: all
+  pre_tasks:
+    - name: ensure packages are installed
+      package:
+        name: "{{ item }}"
+      with_items:
+        - nginx
   roles:
     - vagrant
+  vars:
+    lets_encrypt_web_server: nginx

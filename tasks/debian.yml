@@ -1,0 +1,25 @@
+---
+- name: ensure backport repository is configured
+  apt_repository:
+    repo: "deb http://ftp.debian.org/debian {{ ansible_distribution_release }}-backports main"
+
+- name: ensure required packages are installed
+  apt:
+    name: certbot
+    default_release: "{{ ansible_distribution_release }}-backports"
+
+- name: ensure renew systemd service is installed
+  template:
+    src: systemd.service.j2
+    dest: /etc/systemd/system/certbot-renew.service
+
+- name: ensure renew systemd timer is installed
+  copy:
+    src: systemd.timer
+    dest: /etc/systemd/system/certbot-renew.timer
+
+- name: ensure systemd timer is enabled
+  service:
+    name: certbot-renew.timer
+    state: started
+    enabled: yes

@@ -8,7 +8,13 @@ None
 
 ## Role Variables
 
-None
+Available variables are listed below, along with default values:
+
+    lets_encrypt_web_server: ~
+
+### Web server
+
+The service in the variable `lets_encrypt_web_server` will be reloaded in the post hook of the certbot.
 
 ## Dependencies
 

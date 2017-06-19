@@ -1,14 +1,28 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'mjanser/fedora25-64-lxc'
 
+  config.vm.define 'fedora-25' do | vmconfig |
+    vmconfig.vm.hostname = 'fedora-25'
+    vmconfig.vm.box = 'mjanser/fedora25-64-lxc'
+  end
+
+  config.vm.define 'debian-jessie' do | vmconfig |
+    vmconfig.vm.hostname = 'debian-jessie'
+    vmconfig.vm.box = 'debian/jessie64'
+  end
+
   config.vm.provision 'ansible_local' do |ansible|
     ansible.playbook = 'playbook.yml'
     ansible.sudo = true
+    ansible.install_mode = 'pip'
   end
 
   config.vm.provision 'shell' do |s|
     s.keep_color = true
     s.inline = <<SCRIPT
+systemctl start certbot-renew.service && echo 'renew works' || { echo 'renew does not work' && exit 1; }
+
+mkdir -p /etc/ansible
 echo "127.0.0.1" > /etc/ansible/hosts
 echo "localhost" > /etc/ansible/inventory
 
