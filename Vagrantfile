@@ -6,15 +6,14 @@ Vagrant.configure('2') do |config|
     vmconfig.vm.box = 'mjanser/fedora25-64-lxc'
   end
 
-  config.vm.define 'debian-jessie' do | vmconfig |
-    vmconfig.vm.hostname = 'debian-jessie'
-    vmconfig.vm.box = 'debian/jessie64'
+  config.vm.define 'debian-stretch' do | vmconfig |
+    vmconfig.vm.hostname = 'debian-stretch'
+    vmconfig.vm.box = 'debian/stretch64'
   end
 
   config.vm.provision 'ansible_local' do |ansible|
     ansible.playbook = 'playbook.yml'
     ansible.sudo = true
-    ansible.install_mode = 'pip'
   end
 
   config.vm.provision 'shell' do |s|
